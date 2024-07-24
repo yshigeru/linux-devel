@@ -1849,7 +1849,9 @@ static int __init macvlan_init_module(void)
 {
 	int err;
 
-	register_netdevice_notifier(&macvlan_notifier_block);
+	err = register_netdevice_notifier(&macvlan_notifier_block);
+	if (err < 0)
+		return err;
 
 	err = macvlan_link_register(&macvlan_link_ops);
 	if (err < 0)
